@@ -4,7 +4,8 @@ import '../navigation/my_navigation.dart';
 
 extension NavigationExtentions on NavigationRoute {
   static const Map<NavigationRoute, String> _pathMap = {
-    NavigationRoute.main: '/screen',
+    NavigationRoute.main: '/main',
+    NavigationRoute.solution: '/solution',
   };
 
   String get path => _pathMap[this]!;

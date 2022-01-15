@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../state/change_notifiers.dart';
 import '../utils/extension_functions.dart';
 import 'my_navigation.dart';
 import 'navigation_tab.dart';
-import 'current_tab_change_notifier.dart';
 
 class NavigationTabScaffold extends StatelessWidget {
   const NavigationTabScaffold({Key? key}) : super(key: key);

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:water_jug_challenge/screens/main_screen.dart';
+import 'package:water_jug_challenge/screens/solution_screen.dart';
 import 'package:water_jug_challenge/styling/project_colors.dart';
 import 'package:water_jug_challenge/utils/extension_functions.dart';
 
-enum NavigationRoute { main }
+enum NavigationRoute { main, solution }
 
 class RouteGenerator {
   static Route generateRoute(RouteSettings routeSettings) {
@@ -12,6 +13,11 @@ class RouteGenerator {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const MainScreen(),
+      );
+    } else if (routeUri.path == NavigationRoute.solution.path) {
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const SolutionScreen(),
       );
     } else {
       return _errorRoute();

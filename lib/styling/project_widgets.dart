@@ -13,20 +13,24 @@ class ProjectHorizontalPadding extends Padding {
 
 class ProjectTextField extends TextFormField {
   ProjectTextField({
-    Key? key,
     required Widget label,
     required String hintText,
     required FocusNode focusNode,
-    
     required TextEditingController controller,
+    Key? key,
+    String? Function(String?)? validator,
   }) : super(
           key: key,
           focusNode: focusNode,
           controller: controller,
+          validator: validator,
           decoration: InputDecoration(
             label: label,
             hintText: hintText,
-            border: _ProjectInputBorder(ProjectColors.borders),
+            enabledBorder: _ProjectInputBorder(ProjectColors.border),
+            focusedBorder: _ProjectInputBorder(ProjectColors.focusedBorder),
+            disabledBorder: _ProjectInputBorder(ProjectColors.border),
+            border: _ProjectInputBorder(ProjectColors.border),
             errorBorder: _ProjectInputBorder(ProjectColors.error),
             focusedErrorBorder: _ProjectInputBorder(ProjectColors.error),
           ),
@@ -40,6 +44,7 @@ class _ProjectInputBorder extends OutlineInputBorder {
       : super(
           borderSide: BorderSide(
             color: color,
+            width: 1.8,
           ),
           borderRadius: BorderRadius.circular(8),
         );

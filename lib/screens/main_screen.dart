@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:water_jug_challenge/styling/project_colors.dart';
-import 'package:water_jug_challenge/styling/project_text_styles.dart';
-import 'package:water_jug_challenge/styling/project_widgets.dart';
+import 'package:provider/src/provider.dart';
+import 'package:water_jug_challenge/data/data.dart';
+import 'package:water_jug_challenge/navigation/my_navigation.dart';
+import 'package:water_jug_challenge/navigation/navigation_tab.dart';
+import 'package:water_jug_challenge/state/change_notifiers.dart';
+import 'package:water_jug_challenge/styling/widgets/buttons.dart';
+import 'package:water_jug_challenge/styling/widgets/other_widgets.dart';
+
+import '../styling/project_colors.dart';
+import '../styling/project_widgets.dart';
+import '../utils/validators.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -19,6 +27,8 @@ class _MainScreenState extends State<MainScreen> {
   late TextEditingController _yFieldController;
   late TextEditingController _zFieldController;
 
+  late GlobalKey<FormState> _formKey;
+
   @override
   void initState() {
     super.initState();
@@ -29,6 +39,26 @@ class _MainScreenState extends State<MainScreen> {
     _xFieldController = TextEditingController();
     _yFieldController = TextEditingController();
     _zFieldController = TextEditingController();
+
+    _formKey = GlobalKey<FormState>();
+  }
+
+  void _onStartChallenge() {
+    if (_formKey.currentState?.validate() ?? false) {
+      final Inputs inputs = Inputs(
+        xMaxVolume: int.parse(_xFieldController.text),
+        yMaxVolume: int.parse(_yFieldController.text),
+        zWantedVolume: int.parse(_zFieldController.text),
+      );
+      context.read<InputsChangeNotifier>().setInputs(inputs);
+      context
+          .read<CurrentTabChangeNotifier>()
+          .currentTab
+          .tabNavigationService
+          .pushRoute(
+            navRoute: NavigationRoute.solution,
+          );
+    }
   }
 
   @override
@@ -43,37 +73,39 @@ class _MainScreenState extends State<MainScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-                Text(
-                  "Let's examine my code in",
-                  style: ProjectTextStyles.mainScreenTitleLine1,
+                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                const AppTitle(),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                InputForm(
+                  formKey: _formKey,
+                  fields: [
+                    ProjectTextField(
+                      label: const Text('Bucket X volume'),
+                      validator: ProjectValidator.intFieldValidator,
+                      hintText: 'Put X volume here',
+                      focusNode: _xFieldFocusNode,
+                      controller: _xFieldController,
+                    ),
+                    ProjectTextField(
+                      label: const Text('Bucket Y volume'),
+                      hintText: 'Put Y volume here',
+                      validator: ProjectValidator.intFieldValidator,
+                      focusNode: _yFieldFocusNode,
+                      controller: _yFieldController,
+                    ),
+                    ProjectTextField(
+                      label: const Text('Wanted Z volume'),
+                      hintText: 'Put Z volume here',
+                      validator: ProjectValidator.intFieldValidator,
+                      focusNode: _zFieldFocusNode,
+                      controller: _zFieldController,
+                    ),
+                  ],
                 ),
-                Text(
-                  "Water Jug Challenge",
-                  style: ProjectTextStyles.mainScreenTitleLine2,
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-                ProjectTextField(
-                  label: const Text('X'),
-                  hintText: 'Put X value here',
-                  focusNode: _xFieldFocusNode,
-                  controller: _xFieldController,
-                ),
-                const SizedBox(height: 10),
-                ProjectTextField(
-                  label: const Text('Y'),
-                  hintText: 'Put Y value here',
-                  focusNode: _yFieldFocusNode,
-                  controller: _yFieldController,
-                ),
-                const SizedBox(height: 10),
-                ProjectTextField(
-                  label: const Text('Z'),
-                  hintText: 'Put Z value here',
-                  focusNode: _zFieldFocusNode,
-                  controller: _zFieldController,
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                ProjectElevatedButton(
+                    onPressed: _onStartChallenge, text: 'Start'),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               ],
             ),
           ),

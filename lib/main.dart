@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:water_jug_challenge/dependency_injection.dart';
 import 'package:water_jug_challenge/global_providers_injection.dart';
+import 'package:water_jug_challenge/styling/project_colors.dart';
 
 import 'constants/project_strings.dart';
 import 'navigation/navigation_scaffold.dart';
@@ -35,7 +36,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: ProjectStrings.appName,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          backgroundColor: ProjectColors.background,
+          primaryColor: ProjectColors.primary,
+          errorColor: ProjectColors.error,
+          appBarTheme: AppBarTheme(
+            backgroundColor: ProjectColors.background,
+            foregroundColor: ProjectColors.secondary,
+            elevation: 0,
+          ),
         ),
         home: const NavigationTabScaffold(),
       ),

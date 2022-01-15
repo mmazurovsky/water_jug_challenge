@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:water_jug_challenge/navigation/current_tab_change_notifier.dart';
 
 import 'dependency_injection.dart';
+import 'state/change_notifiers.dart';
 
 class GlobalProvidersInjection extends StatelessWidget {
   final Widget child;
@@ -16,6 +16,9 @@ class GlobalProvidersInjection extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => serviceLocator<CurrentTabChangeNotifier>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => serviceLocator<InputsChangeNotifier>(),
         ),
       ],
       child: child,
