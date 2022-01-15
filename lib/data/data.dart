@@ -22,11 +22,11 @@ class BucketsState with _$BucketsState {
 }
 
 @freezed
-class StepState with _$StepState {
-  const StepState._();
-  factory StepState({
+class BucketsStepState with _$BucketsStepState {
+  const BucketsStepState._();
+  factory BucketsStepState({
     required BucketsState bucketsState,
-    required Action action,
+    required BucketAction action,
     required Bucket actionInitializer,
   }) = _StepState;
 

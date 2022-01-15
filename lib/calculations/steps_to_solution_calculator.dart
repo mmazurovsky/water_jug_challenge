@@ -6,7 +6,7 @@ import '../exceptions/exception_messages.dart';
 import '../exceptions/exceptions.dart';
 
 abstract class StepsToSolutionCalculator {
-  List<StepState> call();
+  List<BucketsStepState> call();
 }
 
 class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
@@ -20,7 +20,7 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
   StepsToSolutionCalculatorImpl(this._inputs);
 
   @override
-  List<StepState> call() {
+  List<BucketsStepState> call() {
     if (zWantedVolume > xMaxVolume && zWantedVolume > yMaxVolume) {
       throw NoSolutionException(ExceptionMessages.zMoreThanXAndY);
     } else if (zWantedVolume % xMaxVolume.gcd(yMaxVolume) != 0) {
@@ -29,18 +29,18 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
       // TODO work this in UI
       return [];
     }
-    final solutionStartingWithXBucket = <StepState>[
-      StepState(
-        action: Action.fill,
+    final solutionStartingWithXBucket = <BucketsStepState>[
+      BucketsStepState(
+        action: BucketAction.fill,
         actionInitializer: Bucket.x,
         bucketsState: BucketsState(xMaxVolume, 0),
       )
     ];
 
     // TODO can be linked list
-    final solutionStartingWithYBucket = <StepState>[
-      StepState(
-        action: Action.fill,
+    final solutionStartingWithYBucket = <BucketsStepState>[
+      BucketsStepState(
+        action: BucketAction.fill,
         actionInitializer: Bucket.y,
         bucketsState: BucketsState(0, yMaxVolume),
       )
@@ -80,7 +80,7 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
     }
   }
 
-  bool _checkIfStepIsFinal(StepState step) {
+  bool _checkIfStepIsFinal(BucketsStepState step) {
     if (step.xFilledVolume == zWantedVolume ||
         step.yFilledVolume == zWantedVolume) {
       return true;
@@ -89,8 +89,8 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
     }
   }
 
-  StepState? _resolveNewStepForBucketState(BucketsState bucketsState) {
-    StepState? nextStep;
+  BucketsStepState? _resolveNewStepForBucketState(BucketsState bucketsState) {
+    BucketsStepState? nextStep;
     nextStep = _tryTransferWater(bucketsState);
     nextStep ??= _tryFillBucketWith0Volume(bucketsState);
     nextStep ??= _tryEmptyBucketWithMaxVolume(bucketsState);
@@ -100,9 +100,9 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
     return nextStep;
   }
 
-  StepState? _tryTransferWater(BucketsState bucketsState) {
-    const action = Action.transfer;
-    StepState? newStep;
+  BucketsStepState? _tryTransferWater(BucketsState bucketsState) {
+    const action = BucketAction.transfer;
+    BucketsStepState? newStep;
     if (bucketsState.xFilledVolume < xMaxVolume &&
         bucketsState.yFilledVolume > 0) {
       final transferedVolume = min(
@@ -111,7 +111,7 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
           bucketsState.xFilledVolume + transferedVolume,
           bucketsState.yFilledVolume - transferedVolume);
       if (!_visited.contains(newBucketState)) {
-        newStep = StepState(
+        newStep = BucketsStepState(
           bucketsState: newBucketState,
           action: action,
           actionInitializer: Bucket.y,
@@ -125,7 +125,7 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
           bucketsState.xFilledVolume - transferedVolume,
           bucketsState.yFilledVolume + transferedVolume);
       if (!_visited.contains(newBucketState)) {
-        newStep = StepState(
+        newStep = BucketsStepState(
           bucketsState: newBucketState,
           action: action,
           actionInitializer: Bucket.x,
@@ -135,14 +135,14 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
     return newStep;
   }
 
-  StepState? _tryFillBucketWith0Volume(BucketsState bucketsState) {
-    const action = Action.fill;
-    StepState? newStep;
+  BucketsStepState? _tryFillBucketWith0Volume(BucketsState bucketsState) {
+    const action = BucketAction.fill;
+    BucketsStepState? newStep;
     if (bucketsState.xFilledVolume == 0) {
       final newBucketsState =
           BucketsState(xMaxVolume, bucketsState.yFilledVolume);
       if (!_visited.contains(newBucketsState)) {
-        newStep = StepState(
+        newStep = BucketsStepState(
           bucketsState: newBucketsState,
           action: action,
           actionInitializer: Bucket.x,
@@ -152,7 +152,7 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
       final newBucketsState =
           BucketsState(bucketsState.xFilledVolume, yMaxVolume);
       if (!_visited.contains(newBucketsState)) {
-        newStep = StepState(
+        newStep = BucketsStepState(
           bucketsState: newBucketsState,
           action: action,
           actionInitializer: Bucket.y,
@@ -162,13 +162,13 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
     return newStep;
   }
 
-  StepState? _tryEmptyBucketWithMaxVolume(BucketsState bucketsState) {
-    const action = Action.empty;
-    StepState? newStep;
+  BucketsStepState? _tryEmptyBucketWithMaxVolume(BucketsState bucketsState) {
+    const action = BucketAction.empty;
+    BucketsStepState? newStep;
     if (bucketsState.xFilledVolume == xMaxVolume) {
       final newBucketsState = BucketsState(0, bucketsState.yFilledVolume);
       if (!_visited.contains(newBucketsState)) {
-        newStep = StepState(
+        newStep = BucketsStepState(
           bucketsState: newBucketsState,
           action: action,
           actionInitializer: Bucket.x,
@@ -177,7 +177,7 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
     } else if (bucketsState.yFilledVolume == yMaxVolume) {
       final newBucketsState = BucketsState(bucketsState.xFilledVolume, 0);
       if (!_visited.contains(newBucketsState)) {
-        newStep = StepState(
+        newStep = BucketsStepState(
           bucketsState: newBucketsState,
           action: action,
           actionInitializer: Bucket.y,

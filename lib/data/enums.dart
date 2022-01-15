@@ -1,4 +1,4 @@
-enum Action {
+enum BucketAction {
   fill,
   empty,
   transfer,

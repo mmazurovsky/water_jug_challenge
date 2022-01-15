@@ -23,6 +23,7 @@ class CurrentTabChangeNotifierImpl
   }
 }
 
+// TODO not change notifier
 abstract class InputsChangeNotifier implements ChangeNotifier {
   Inputs? get inputs;
   void setInputs(Inputs inputs);
@@ -39,6 +40,31 @@ class InputsChangeNotifierImpl
   @override
   void setInputs(Inputs inputs) {
     _inputs = inputs;
+    notifyListeners();
+  }
+}
+
+class BucketsStatesStepsChangeNotifier with ChangeNotifier {
+  List<BucketsStepState>? _stepsStates;
+  int _currentStepIndex = 0;
+  bool _isFinalStep = false;
+
+  set stepsStates(List<BucketsStepState> stepsStates) {
+    _stepsStates = stepsStates;
+    if (_stepsStates!.length - 1 == _currentStepIndex) {
+      _isFinalStep = true;
+    }
+  }
+
+  List<BucketsStepState> get stepsStates => _stepsStates ?? [];
+  int get currentStepIndex => _currentStepIndex;
+  bool get isFinalStep => _isFinalStep;
+
+  void goToNextStep() {
+    _currentStepIndex++;
+    if (_stepsStates!.length - 1 == _currentStepIndex) {
+      _isFinalStep = true;
+    }
     notifyListeners();
   }
 }

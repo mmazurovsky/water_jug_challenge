@@ -333,12 +333,12 @@ abstract class _BucketsState implements BucketsState {
 }
 
 /// @nodoc
-class _$StepStateTearOff {
-  const _$StepStateTearOff();
+class _$BucketsStepStateTearOff {
+  const _$BucketsStepStateTearOff();
 
   _StepState call(
       {required BucketsState bucketsState,
-      required Action action,
+      required BucketAction action,
       required Bucket actionInitializer}) {
     return _StepState(
       bucketsState: bucketsState,
@@ -349,36 +349,38 @@ class _$StepStateTearOff {
 }
 
 /// @nodoc
-const $StepState = _$StepStateTearOff();
+const $BucketsStepState = _$BucketsStepStateTearOff();
 
 /// @nodoc
-mixin _$StepState {
+mixin _$BucketsStepState {
   BucketsState get bucketsState => throw _privateConstructorUsedError;
-  Action get action => throw _privateConstructorUsedError;
+  BucketAction get action => throw _privateConstructorUsedError;
   Bucket get actionInitializer => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $StepStateCopyWith<StepState> get copyWith =>
+  $BucketsStepStateCopyWith<BucketsStepState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $StepStateCopyWith<$Res> {
-  factory $StepStateCopyWith(StepState value, $Res Function(StepState) then) =
-      _$StepStateCopyWithImpl<$Res>;
+abstract class $BucketsStepStateCopyWith<$Res> {
+  factory $BucketsStepStateCopyWith(
+          BucketsStepState value, $Res Function(BucketsStepState) then) =
+      _$BucketsStepStateCopyWithImpl<$Res>;
   $Res call(
-      {BucketsState bucketsState, Action action, Bucket actionInitializer});
+      {BucketsState bucketsState, BucketAction action, Bucket actionInitializer});
 
   $BucketsStateCopyWith<$Res> get bucketsState;
 }
 
 /// @nodoc
-class _$StepStateCopyWithImpl<$Res> implements $StepStateCopyWith<$Res> {
-  _$StepStateCopyWithImpl(this._value, this._then);
+class _$BucketsStepStateCopyWithImpl<$Res>
+    implements $BucketsStepStateCopyWith<$Res> {
+  _$BucketsStepStateCopyWithImpl(this._value, this._then);
 
-  final StepState _value;
+  final BucketsStepState _value;
   // ignore: unused_field
-  final $Res Function(StepState) _then;
+  final $Res Function(BucketsStepState) _then;
 
   @override
   $Res call({
@@ -394,7 +396,7 @@ class _$StepStateCopyWithImpl<$Res> implements $StepStateCopyWith<$Res> {
       action: action == freezed
           ? _value.action
           : action // ignore: cast_nullable_to_non_nullable
-              as Action,
+              as BucketAction,
       actionInitializer: actionInitializer == freezed
           ? _value.actionInitializer
           : actionInitializer // ignore: cast_nullable_to_non_nullable
@@ -411,20 +413,22 @@ class _$StepStateCopyWithImpl<$Res> implements $StepStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$StepStateCopyWith<$Res> implements $StepStateCopyWith<$Res> {
+abstract class _$StepStateCopyWith<$Res>
+    implements $BucketsStepStateCopyWith<$Res> {
   factory _$StepStateCopyWith(
           _StepState value, $Res Function(_StepState) then) =
       __$StepStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {BucketsState bucketsState, Action action, Bucket actionInitializer});
+      {BucketsState bucketsState, BucketAction action, Bucket actionInitializer});
 
   @override
   $BucketsStateCopyWith<$Res> get bucketsState;
 }
 
 /// @nodoc
-class __$StepStateCopyWithImpl<$Res> extends _$StepStateCopyWithImpl<$Res>
+class __$StepStateCopyWithImpl<$Res>
+    extends _$BucketsStepStateCopyWithImpl<$Res>
     implements _$StepStateCopyWith<$Res> {
   __$StepStateCopyWithImpl(_StepState _value, $Res Function(_StepState) _then)
       : super(_value, (v) => _then(v as _StepState));
@@ -446,7 +450,7 @@ class __$StepStateCopyWithImpl<$Res> extends _$StepStateCopyWithImpl<$Res>
       action: action == freezed
           ? _value.action
           : action // ignore: cast_nullable_to_non_nullable
-              as Action,
+              as BucketAction,
       actionInitializer: actionInitializer == freezed
           ? _value.actionInitializer
           : actionInitializer // ignore: cast_nullable_to_non_nullable
@@ -467,13 +471,13 @@ class _$_StepState extends _StepState {
   @override
   final BucketsState bucketsState;
   @override
-  final Action action;
+  final BucketAction action;
   @override
   final Bucket actionInitializer;
 
   @override
   String toString() {
-    return 'StepState(bucketsState: $bucketsState, action: $action, actionInitializer: $actionInitializer)';
+    return 'BucketsStepState(bucketsState: $bucketsState, action: $action, actionInitializer: $actionInitializer)';
   }
 
   @override
@@ -501,17 +505,17 @@ class _$_StepState extends _StepState {
       __$StepStateCopyWithImpl<_StepState>(this, _$identity);
 }
 
-abstract class _StepState extends StepState {
+abstract class _StepState extends BucketsStepState {
   factory _StepState(
       {required BucketsState bucketsState,
-      required Action action,
+      required BucketAction action,
       required Bucket actionInitializer}) = _$_StepState;
   _StepState._() : super._();
 
   @override
   BucketsState get bucketsState;
   @override
-  Action get action;
+  BucketAction get action;
   @override
   Bucket get actionInitializer;
   @override

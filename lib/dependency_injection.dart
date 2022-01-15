@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:water_jug_challenge/state/cubit/solution_cubit.dart';
 
 import 'calculations/steps_to_solution_calculator.dart';
 import 'data/data.dart';
@@ -29,6 +29,16 @@ void injectDependencies() {
 
   serviceLocator.registerLazySingleton<InputsChangeNotifier>(
     () => InputsChangeNotifierImpl(),
+  );
+
+  serviceLocator.registerFactoryParam<SolutionCubit, Inputs, Null>(
+    (param1, param2) => SolutionCubit(
+      serviceLocator<StepsToSolutionCalculator>(param1: param1),
+    ),
+  );
+
+  serviceLocator.registerFactory(
+    () => BucketsStatesStepsChangeNotifier(),
   );
 
   // Service
