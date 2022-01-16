@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -126,17 +128,27 @@ class _SolutionContentState extends State<SolutionContent> {
         context.read<BucketsStatesStepsChangeNotifier>().stepsStates;
     final currentStepIndex =
         context.watch<BucketsStatesStepsChangeNotifier>().currentStepIndex;
+    final xMaxVolume = context.read<InputsChangeNotifier>().inputs!.xMaxVolume;
+    final yMaxVolume = context.read<InputsChangeNotifier>().inputs!.yMaxVolume;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(
-              stepsStates[currentStepIndex].xFilledVolume.toString(),
+            BucketRepresentation(
+              bucketName: Bucket.x.name,
+              height: 200 * xMaxVolume / max(xMaxVolume, yMaxVolume),
+              currentVolume: stepsStates[currentStepIndex].xFilledVolume,
+              maxVolume: xMaxVolume,
             ),
-            Text(
-              stepsStates[currentStepIndex].yFilledVolume.toString(),
+            BucketRepresentation(
+              bucketName: Bucket.y.name,
+              height: 200 * yMaxVolume / max(xMaxVolume, yMaxVolume),
+              currentVolume: stepsStates[currentStepIndex].yFilledVolume,
+              maxVolume: yMaxVolume,
             ),
           ],
         ),
@@ -168,4 +180,95 @@ class _SolutionContentState extends State<SolutionContent> {
       ],
     );
   }
+}
+
+class BucketRepresentation extends StatelessWidget {
+  final String bucketName;
+  final int maxVolume;
+  final int currentVolume;
+  final double height;
+  const BucketRepresentation({
+    Key? key,
+    required this.bucketName,
+    required this.maxVolume,
+    required this.currentVolume,
+    required this.height,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Column(
+              
+              children: [
+                SizedBox(
+                  height: height + 20,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        maxVolume.toString(),
+                        style: currentVolume != maxVolume
+                            ? TextStyle()
+                            : TextStyle(
+                                color: ProjectColors.accent,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                      ),
+                      if (currentVolume != maxVolume)
+                        SizedBox(
+                          height: currentVolume / maxVolume * height + 20,
+                          child: Text(
+                            currentVolume.toString(),
+                            style: TextStyle(
+                              color: ProjectColors.accent,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(width: 10),
+            Container(
+              width: 100,
+              height: height,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: const BucketBottomBorderRadius(),
+              ),
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: currentVolume / maxVolume * height,
+                decoration: BoxDecoration(
+                  color: ProjectColors.accent,
+                  borderRadius: const BucketBottomBorderRadius(),
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Text('${bucketName.toUpperCase()} bucket'),
+      ],
+    );
+  }
+}
+
+class BucketBottomBorderRadius extends BorderRadius {
+  static const _radius = Radius.circular(8);
+  const BucketBottomBorderRadius()
+      : super.only(
+          bottomLeft: _radius,
+          bottomRight: _radius,
+        );
 }
