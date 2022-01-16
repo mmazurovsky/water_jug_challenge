@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlobalProvidersInjection(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: ProjectStrings.appName,
         theme: ThemeData(
           backgroundColor: ProjectColors.background,

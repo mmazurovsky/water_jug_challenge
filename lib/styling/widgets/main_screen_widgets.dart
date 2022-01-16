@@ -12,12 +12,12 @@ class AppTitle extends StatelessWidget {
       children: [
         Text(
           "Let's start",
-          style: ProjectTextStyles.mainScreenTitleLine1,
+          style: ProjectTextStyles.mainScreenSubtitle,
         ),
         const SizedBox(height: 10),
         const Text(
           "Water\nBucket\nChallenge",
-          style: ProjectTextStyles.mainScreenTitleLine2,
+          style: ProjectTextStyles.screenTitle,
         ),
       ],
     );

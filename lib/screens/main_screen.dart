@@ -5,7 +5,7 @@ import 'package:water_jug_challenge/navigation/my_navigation.dart';
 import 'package:water_jug_challenge/navigation/navigation_tab.dart';
 import 'package:water_jug_challenge/state/change_notifiers.dart';
 import 'package:water_jug_challenge/styling/widgets/buttons.dart';
-import 'package:water_jug_challenge/styling/widgets/other_widgets.dart';
+import 'package:water_jug_challenge/styling/widgets/main_screen_widgets.dart';
 
 import '../styling/project_colors.dart';
 import '../styling/project_widgets.dart';
