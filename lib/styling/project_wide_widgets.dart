@@ -15,13 +15,11 @@ class ProjectTextField extends TextFormField {
   ProjectTextField({
     required Widget label,
     required String hintText,
-    required FocusNode focusNode,
     required TextEditingController controller,
     Key? key,
     String? Function(String?)? validator,
   }) : super(
           key: key,
-          focusNode: focusNode,
           controller: controller,
           validator: validator,
           decoration: InputDecoration(

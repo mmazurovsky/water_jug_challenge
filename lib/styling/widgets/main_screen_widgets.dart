@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:water_jug_challenge/styling/project_text_styles.dart';
-import 'package:water_jug_challenge/styling/project_widgets.dart';
+import 'package:water_jug_challenge/styling/project_wide_widgets.dart';
 
 class AppTitle extends StatelessWidget {
   const AppTitle({Key? key}) : super(key: key);

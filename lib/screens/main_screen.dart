@@ -8,7 +8,7 @@ import 'package:water_jug_challenge/styling/widgets/buttons.dart';
 import 'package:water_jug_challenge/styling/widgets/main_screen_widgets.dart';
 
 import '../styling/project_colors.dart';
-import '../styling/project_widgets.dart';
+import '../styling/project_wide_widgets.dart';
 import '../utils/validators.dart';
 
 class MainScreen extends StatefulWidget {
@@ -32,15 +32,19 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    _xFieldFocusNode = FocusNode();
-    _yFieldFocusNode = FocusNode();
-    _zFieldFocusNode = FocusNode();
-
     _xFieldController = TextEditingController();
     _yFieldController = TextEditingController();
     _zFieldController = TextEditingController();
 
     _formKey = GlobalKey<FormState>();
+  }
+
+  @override
+  void dispose() {
+    _xFieldController.dispose();
+    _yFieldController.dispose();
+    _zFieldController.dispose();
+    super.dispose();
   }
 
   void _onStartChallenge() {
@@ -83,21 +87,18 @@ class _MainScreenState extends State<MainScreen> {
                       label: const Text('Bucket X volume'),
                       validator: ProjectValidator.intFieldValidator,
                       hintText: 'Put X volume here',
-                      focusNode: _xFieldFocusNode,
                       controller: _xFieldController,
                     ),
                     ProjectTextField(
                       label: const Text('Bucket Y volume'),
                       hintText: 'Put Y volume here',
                       validator: ProjectValidator.intFieldValidator,
-                      focusNode: _yFieldFocusNode,
                       controller: _yFieldController,
                     ),
                     ProjectTextField(
                       label: const Text('Wanted Z volume'),
                       hintText: 'Put Z volume here',
                       validator: ProjectValidator.intFieldValidator,
-                      focusNode: _zFieldFocusNode,
                       controller: _zFieldController,
                     ),
                   ],

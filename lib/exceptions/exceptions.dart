@@ -1,4 +1,4 @@
 class NoSolutionException implements Exception {
-  final String? message;
+  final String message;
   NoSolutionException(this.message);
 }

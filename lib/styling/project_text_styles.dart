@@ -9,7 +9,9 @@ class ProjectTextStyles {
     height: 0.95,
   );
 
-  static TextStyle mainScreenSubtitle = TextStyle(
+  static final TextStyle noSolution = screenTitle.copyWith(fontSize: 40);
+
+  static final TextStyle mainScreenSubtitle = TextStyle(
     color: ProjectColors.secondaryText,
     fontSize: 21,
     fontWeight: FontWeight.w600,
@@ -33,7 +35,7 @@ class ProjectTextStyles {
     color: ProjectColors.primaryText,
   );
 
-  static TextStyle stepTitle =
+  static final TextStyle stepTitle =
       currentStepTitle.copyWith(color: ProjectColors.secondaryText);
 
   static const TextStyle currentStepDescription = TextStyle(
@@ -42,6 +44,18 @@ class ProjectTextStyles {
     color: ProjectColors.primaryText,
   );
 
-  static TextStyle stepDescription =
+  static final TextStyle stepDescription =
       currentStepDescription.copyWith(color: ProjectColors.secondaryText);
+
+  static final TextStyle bucketWaterMarker = TextStyle(
+    color: ProjectColors.accent,
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+  );
+
+  static const TextStyle bucketMaxMarker = TextStyle(
+    color: ProjectColors.primaryText,
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+  );
 }

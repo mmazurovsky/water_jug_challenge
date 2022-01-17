@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:water_jug_challenge/styling/project_wide_widgets.dart';
 
 import '../project_colors.dart';
 
@@ -7,12 +8,13 @@ class LoadingContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.8,
-      width: MediaQuery.of(context).size.width,
-      child: Container(
-        alignment: Alignment.center,
-        child: const CircularProgressIndicator(color: ProjectColors.secondary),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          CircularProgressIndicator(color: ProjectColors.secondary),
+        ],
       ),
     );
   }
