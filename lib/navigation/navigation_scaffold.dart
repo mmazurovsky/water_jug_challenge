@@ -11,9 +11,8 @@ class NavigationTabScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO check it is experimental
     return IndexedStack(
-      index: context.watch<CurrentTabChangeNotifier>().currentTab.index,
+      index: context.watch<CurrentTabChangeNotifierImpl>().currentTab.index,
       children: const [
         NavigatorForTab(NavigationTab.main),
       ],

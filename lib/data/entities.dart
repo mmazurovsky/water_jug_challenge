@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'enums.dart';
 
-part 'data.freezed.dart';
+part 'entities.freezed.dart';
 
 @freezed
 class Inputs with _$Inputs {

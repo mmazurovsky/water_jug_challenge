@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'dependency_injection.dart';
+import 'dependency.dart';
 import 'state/change_notifiers.dart';
 
 class GlobalProvidersInjection extends StatelessWidget {
@@ -15,10 +15,10 @@ class GlobalProvidersInjection extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => serviceLocator<CurrentTabChangeNotifier>(),
+          create: (_) => getIt<CurrentTabChangeNotifierImpl>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => serviceLocator<InputsChangeNotifier>(),
+          create: (_) => getIt<InputsChangeNotifierImpl>(),
         ),
       ],
       child: child,

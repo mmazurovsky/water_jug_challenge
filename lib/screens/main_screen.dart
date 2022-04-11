@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:water_jug_challenge/data/data.dart';
+import 'package:water_jug_challenge/data/entities.dart';
 import 'package:water_jug_challenge/navigation/my_navigation.dart';
+import 'package:water_jug_challenge/navigation/navigation_extension.dart';
 import 'package:water_jug_challenge/navigation/navigation_tab.dart';
 import 'package:water_jug_challenge/state/change_notifiers.dart';
 import 'package:water_jug_challenge/styling/widgets/buttons.dart';
@@ -54,14 +55,10 @@ class _MainScreenState extends State<MainScreen> {
         yMaxVolume: int.parse(_yFieldController.text),
         zWantedVolume: int.parse(_zFieldController.text),
       );
-      context.read<InputsChangeNotifier>().setInputs(inputs);
-      context
-          .read<CurrentTabChangeNotifier>()
-          .currentTab
-          .tabNavigationService
-          .pushRoute(
-            navRoute: NavigationRoute.solution,
-          );
+      context.read<InputsChangeNotifierImpl>().setInputs(inputs);
+      Navigator.of(context).pushRoute(
+        navRoute: NavigationRoute.solution,
+      );
     }
   }
 

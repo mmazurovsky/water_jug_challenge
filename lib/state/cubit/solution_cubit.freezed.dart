@@ -124,12 +124,20 @@ class __$LoadingSolutionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadingSolution implements _LoadingSolution {
+class _$_LoadingSolution
+    with DiagnosticableTreeMixin
+    implements _LoadingSolution {
   const _$_LoadingSolution();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SolutionState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'SolutionState.loading'));
   }
 
   @override
@@ -248,15 +256,25 @@ class __$LoadedSolutionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadedSolution implements _LoadedSolution {
+class _$_LoadedSolution
+    with DiagnosticableTreeMixin
+    implements _LoadedSolution {
   const _$_LoadedSolution(this.steps);
 
   @override
   final List<BucketsStepState> steps;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SolutionState.loaded(steps: $steps)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SolutionState.loaded'))
+      ..add(DiagnosticsProperty('steps', steps));
   }
 
   @override
@@ -389,15 +407,23 @@ class __$ErrorSolutionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ErrorSolution implements _ErrorSolution {
+class _$_ErrorSolution with DiagnosticableTreeMixin implements _ErrorSolution {
   const _$_ErrorSolution(this.message);
 
   @override
   final String message;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SolutionState.error(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SolutionState.error'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override

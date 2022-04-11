@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/src/provider.dart';
 
-import '../data/data.dart';
-import '../dependency_injection.dart';
+import '../calculations/steps_to_solution_calculator.dart';
+import '../data/entities.dart';
+import '../dependency.dart';
 import '../state/change_notifiers.dart';
 import '../state/cubit/solution_cubit.dart';
 import '../styling/project_colors.dart';
@@ -34,11 +35,14 @@ class _SolutionScreenProviderWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => serviceLocator<BucketsStatesStepsChangeNotifier>(),
+      create: (_) => getIt<BucketsStatesStepsChangeNotifier>(),
       child: BlocProvider(
-        create: (context) => serviceLocator<SolutionCubit>(
-          param1: context.read<InputsChangeNotifier>().inputs!,
-        ),
+        create: (context) {
+          final inputs = context.read<InputsChangeNotifierImpl>().inputs!;
+          return getIt<SolutionCubit>(
+            param1: getIt<StepsToSolutionCalculator>(param1: inputs),
+          );
+        },
         child: child,
       ),
     );
@@ -73,6 +77,7 @@ class _SolutionCanvasState extends State<_SolutionCanvas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: BlocBuilder<SolutionCubit, SolutionState>(
         builder: (context, state) {
           return state.maybeWhen(
@@ -140,6 +145,7 @@ class _SolutionContentState extends State<SolutionContent> {
   Widget build(BuildContext context) {
     return CustomScrollView(
       controller: widget._scrollController,
+      
       slivers: [
         SliverPersistentHeader(
           pinned: true,

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
-import '../../data/data.dart';
+import '../../data/entities.dart';
 import '../../data/enums.dart';
 import '../../state/change_notifiers.dart';
 import '../project_colors.dart';
@@ -24,7 +24,7 @@ class BucketVolumes extends StatelessWidget {
         .getFilledVolumeOfBucket(bucketParameters.bucket);
 
     return SizedBox(
-      height: bucketParameters.height + 20,
+      height: bucketParameters.height,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -108,8 +108,8 @@ class BucketsContainer extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final xMaxVolume = context.read<InputsChangeNotifier>().inputs!.xMaxVolume;
-    final yMaxVolume = context.read<InputsChangeNotifier>().inputs!.yMaxVolume;
+    final xMaxVolume = context.read<InputsChangeNotifierImpl>().inputs!.xMaxVolume;
+    final yMaxVolume = context.read<InputsChangeNotifierImpl>().inputs!.yMaxVolume;
 
     return Container(
       color: ProjectColors.background,

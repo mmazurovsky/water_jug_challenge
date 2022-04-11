@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:water_jug_challenge/dependency_injection.dart';
-import 'package:water_jug_challenge/global_providers_injection.dart';
-import 'package:water_jug_challenge/styling/project_colors.dart';
 
 import 'constants/project_strings.dart';
+import 'dependency.dart';
+import 'global_providers_injection.dart';
 import 'navigation/navigation_scaffold.dart';
+import 'styling/project_colors.dart';
 
 void main() async {
   await appConfiguration();
@@ -14,7 +14,7 @@ void main() async {
 
 Future<void> appConfiguration() async {
   WidgetsFlutterBinding.ensureInitialized();
-  injectDependencies();
+  configureDependencies();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);

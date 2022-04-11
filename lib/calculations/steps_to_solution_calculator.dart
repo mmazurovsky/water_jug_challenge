@@ -1,6 +1,8 @@
 import 'dart:math';
 
-import '../data/data.dart';
+import 'package:injectable/injectable.dart';
+
+import '../data/entities.dart';
 import '../data/enums.dart';
 import '../exceptions/exception_messages.dart';
 import '../exceptions/exceptions.dart';
@@ -9,6 +11,7 @@ abstract class StepsToSolutionCalculator {
   List<BucketsStepState> call();
 }
 
+@Injectable(as: StepsToSolutionCalculator)
 class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
   final Inputs _inputs;
   late Set<BucketsState> _visited;
@@ -17,7 +20,7 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
   int get yMaxVolume => _inputs.yMaxVolume;
   int get zWantedVolume => _inputs.zWantedVolume;
 
-  StepsToSolutionCalculatorImpl(this._inputs);
+  StepsToSolutionCalculatorImpl(@factoryParam this._inputs);
 
   @override
   List<BucketsStepState> call() {
@@ -187,7 +190,3 @@ class StepsToSolutionCalculatorImpl implements StepsToSolutionCalculator {
     return newStep;
   }
 }
-
-//TODO can we have 0 zWanted?
-//TODO what if couple best solutions?
-//TODO zwanted must be only in one bucket?

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../utils/extension_functions.dart';
 
 class ProjectColors {
-
   static const Color background = Colors.white;
   static const Color primary = Colors.white;
   static const Color secondary = Colors.black;
